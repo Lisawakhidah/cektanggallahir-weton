@@ -74,8 +74,8 @@
             </div>
             <form method="post">
                 <div class="form-group">
-                    <input class="input_tggl" autofocus placeholder="Tanggal" maxlength="2" name="tga" onkeypress="return kodeScript(event, '0123456789',this)" size="3" required="">
-                    <select name="bal" class="kal-select" required="">
+                    <input class="input_tggl" autofocus placeholder="Tanggal" maxlength="2" name="inputtgl" onkeypress="return kodeScript(event, '0123456789',this)" size="3" required="">
+                    <select name="nambul" class="kal-select" required="">
                         <option  selected="" value="Januari">
                             Januari
                         </option>
@@ -113,14 +113,13 @@
                             Desember
                         </option>
                     </select>
-                    <input class="input_tahun"  placeholder="Tahun" id="tunwtn" maxlength="4" name="tun" onkeypress="return kodeScript(event, '0123456789',this)" size="2" required="">
+                    <input class="input_tahun"  placeholder="Tahun" id="tunwtn" maxlength="4" name="inputtahun" onkeypress="return kodeScript(event, '0123456789',this)" size="2" required="">
                 </div>
                 <br>
                 <button type="button" onclick="cariweton(this.form)" class="button">
                     Submit
                 </button>
             </form>
-            <span id="line"></span>
         </div>
         <div id="hasil" style="display: none;">
             <p class="hasilhead">
@@ -229,62 +228,48 @@
                 Pasa = "Pon";
             return Pasa
         }
-        //function modalx(x) {
-           // var xspan = document.getElementsByClassName("close")[0];
-           // $("#textmodal").text(x);
-           // xmodal.style.display = "block";
-
-           // xspan.onclick = function() {
-           //     xmodal.style.display = "none";
-           // }
-          //  window.onclick = function(event) {
-               // if (event.target == xmodal) {
-                    //xmodal.style.display = "none";
-               // }
-            //}
-       // }
         function cariweton(e) {
-            if (!e.tga.value | !e.tun.value) {
-                modalx("Mohon di lengkapi...");
+            if (!e.inputtgl.value | !e.inputtahun.value) {
+                alert("Tolong data diisi dengan lengkap, agar bisa di proses lebih lanjut");
             } else {
                 document.getElementById('pasaran').innerHTML="";
                 document.getElementById('neptu').innerHTML="";
 
-                tgma = new Date(e.tun.value, e.bal.selectedIndex, e.tga.value);
+                tgma = new Date(e.inputtahun.value, e.bal.selectedIndex, e.inputtgl.value);
                 hari = harian(tgma);
                 Pasa = pasaran1(tgma);
 
-                if (e.bal.value == "Januari") {
+                if (e.nambul.value == "Januari") {
                     var bulan = 0;
-                } else if (e.bal.value == "Februari") {
+                } else if (e.nambul.value == "Februari") {
                     var bulan = 1;
-                } else if (e.bal.value == "Maret") {
+                } else if (e.nambul.value == "Maret") {
                     var bulan = 2;
-                } else if (e.bal.value == "April") {
+                } else if (e.nambul.value == "April") {
                     var bulan = 3;
-                } else if (e.bal.value == "Mei") {
+                } else if (e.nambul.value == "Mei") {
                     var bulan = 4;
-                } else if (e.bal.value == "Juni") {
+                } else if (e.nambul.value == "Juni") {
                     var bulan = 5;
-                } else if (e.bal.value == "Juli") {
+                } else if (e.nambul.value == "Juli") {
                     var bulan = 6;
-                } else if (e.bal.value == "Agustus") {
+                } else if (e.nambul.value == "Agustus") {
                     var bulan = 7;
-                } else if (e.bal.value == "September") {
+                } else if (e.nambul.value == "September") {
                     var bulan = 8;
-                } else if (e.bal.value == "Oktober") {
+                } else if (e.nambul.value == "Oktober") {
                     var bulan = 9;
-                } else if (e.bal.value == "November") {
+                } else if (e.nambul.value == "November") {
                     var bulan = 10;
-                } else if (e.bal.value == "Desember") {
+                } else if (e.nambul.value == "Desember") {
                     var bulan = 11;
                 }
 
-                var first_date = new Date(e.tun.value, bulan, e.tga.value);
+                var first_date = new Date(e.inputtahun.value, bulan, e.inputtgl.value);
                 var max_date = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-                var no_date = e.tga.value;
+                var no_date = e.inputtgl.value;
 
-                if (e.tun.value % 4 == 0) {
+                if (e.inputtahun.value % 4 == 0) {
                     max_date = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
                 }
                 if (no_date <= max_date[bulan]) {
@@ -292,7 +277,7 @@
                     document.getElementById('neptu').innerHTML = Number(neptu[hari][Pasa]);
                     document.getElementById("hasil").style.display = "block";
                 } else {
-                    modalx("Maaf bulan " + e.bal.value + " " + e.tun.value + " tidak memiliki tanggal " + e.tga.value);
+                    alert("Maaf bulan " + e.nambul.value + " " + e.inputtahun.value + " tidak memiliki tanggal " + e.inputtgl.value);
                     document.getElementById("hasil").style.display = "none";
                 }
             }
